@@ -23,7 +23,7 @@
 
 // @icon               data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAABpElEQVR4nO3Vv2uUQRDG8c/ebSMWqay0trATAxrUSi1S2AiWFoJYpNCgoBjURsHWJKeNRfAvsDgFixQqKdPZ2ViEiCJYBOQu8f1hEXO59713j7MUfLZ6d2a/O8vMO0OzDnin9Ku2Mjvuaw07xgSAYEVXe2indMhj92zpKJLnBhF8MDeye9hn6zbN70eRiqCw02Bra3up8BBLu1FEBxsBucXqW4csz0ULe4jorSCMuPU89boRELDMHiI6Y8V65bbCUTccc70RkaOwKLOg0IkyXa9qTjOu2LAs6NZuD86hrdTyxRNTkUqqdhXlHrngGRVEZsMpJwex9DxIZSHYclesIb65LCoHgIs66UJq6btDBZHZrPh8V6YBOX66LbOkTGckBYimBW2FVTNeuOZNyrFJ236Yl4NSy5SbVm1PDvhodqgyMledTdRlAtDzqfL9tfkwUtyaRkv9LwFj9B/w7wPycXOhqlJ0yZHKPChMi5MCiM47XhsopbVJAUHfrYbmN/EToN+02eLPfz9OYyZhFJzW1Jn3lTsxaKQjCkp52jy45r1ZvSbTb9M0d4PBozGZAAAAAElFTkSuQmCC
 
-// @version           4.2.0
+// @version           4.3.0
 // @license           LGPLv3
 
 // @compatible        chrome Chrome_46.0.2490.86 + TamperMonkey + 脚本_1.3 测试通过
@@ -43,6 +43,7 @@
 // @grant       GM_deleteValue
 // @grant       GM_xmlhttpRequest
 // @grant       GM_setClipboard
+// @grant       GM_registerMenuCommand
 // @run-at      document-start
 // ==/UserScript==
 (function() {
@@ -52,15 +53,13 @@
         "status":1,
         "version" : 0.1,
         "message" : "啦啦啦,啦啦啦,我是卖报的小行家",
-        // "position" : ["0","0","auto"],
         "positionTop":"0",
         "positionLeft":"0",
         "positionRight":"auto",
-        "addBtn" : true,
+        "addBtnaddBtn" : true,
         "connectToTheServer" : false,
         "waitUpload":[],
         "currentURL":"null",
-        // "hasFrame": false,
         // 域名规则列表
         "rules" : {
             "rule_def": {
@@ -163,7 +162,7 @@
     for(let value in settingData){
         if(!rwl_userData.hasOwnProperty(value)){
             rwl_userData[value] = settingData[value];
-            GM_setValue("rwl_userData",userSetting);
+            GM_setValue("rwl_userData",rwl_userData);
         }
     }
 
@@ -188,17 +187,16 @@
 
     }
 
-
+    GM_registerMenuCommand("复制限制解除 设置", setMenu)
 
 
 
     // // ------------------------------函数 func
 
     function qxinStart(){
-
+        console.log("脚本: 复制限制解除(改) --- 开始执行 --- 发布者: qxin --- GitHub: https://github.com/qxinGitHub/Remove-web-limits-");
         addDragEven();
         setBtnClick();
-
 
         // 检查是否在黑名单中
         if(check_black_list(list,hostname)){
@@ -213,7 +211,6 @@
             }
         }
     }
-
 
     //添加按钮 func
     function addBtn(){
@@ -267,11 +264,8 @@
 
         var style = document.createElement("style");
         style.type="text/css";
-        // style.innerHTML =  "#rwl-iqxin{" +
         GM_addStyle( "#rwl-iqxin{" +
                 "position:fixed;" +
-                // "top:0;" +
-                // "left:0px;" +
                 "transform:translate(-90px,0);" +
                 "width:85px;" +
                 "height:25px;" +
@@ -307,7 +301,6 @@
                 "cursor: pointer;" +
             "}" +
             "#rwl-iqxin.rwl-active-iqxin{" +
-                // "top: 10px;" +
                 "left: 0px;" +
                 "transform:translate(0,0);" +
                 "opacity: 0.9;" +
@@ -319,8 +312,6 @@
                 "padding:0;" +
                 "font-weight:500;" +
             "}" +
-            "#rwl-setMenuSave," +
-            "#rwl-setMenuClose," +
             "#rwl-iqxin #rwl-setbtn{" +
                 "margin: 0;" +
                 "padding: 0 2px;" +
@@ -330,29 +321,16 @@
                 "background: #fff;" +
                 "color: #000;" +
             "}" +
-            "#rwl-setMenuSave{" +
-                "border: 1px solid green;" +
-            "}" +
-            "#rwl-setMenuClose{" +
-                "border: 1px solid red;" +
-            "}" +
-            // 设置菜单
-            "#rwl-setMenu{" +
-                "text-align:left;" +
-                "font-size:14px;" +
-                "z-index:999999;" +
-                "border: 1px solid cornflowerblue;" +
-            "}" +
-            "#rwl-setMenu p{" +
-                "margin:5px auto;" +
-            "}" +
             " ");
-            // document.querySelector("#rwl-iqxin").appendChild(style);
     };
 
     // 给按钮绑定点击事件
     function setBtnClick(){  
-        document.querySelector("#rwl-setbtn").addEventListener("click",function(){
+        document.querySelector("#rwl-setbtn").addEventListener("click",setMenu);
+    }
+
+    // 菜单
+     function setMenu(){
             var oldEditBox = document.querySelector("#rwl-setMenu");
             if(oldEditBox){
                 oldEditBox.parentNode.removeChild(oldEditBox);
@@ -360,6 +338,7 @@
             }
             var userSetting = GM_getValue("rwl_userData");
             var upload_checked = userSetting.connectToTheServer?"checked":"";
+            var btnchecked =  userSetting.addBtn?'checked':''
 
             var odom = document.createElement("div");
             odom.id = "rwl-setMenu";
@@ -369,20 +348,51 @@
                 "padding: 10px;" +
                 "background: #fff;" +
                 "border-radius: 4px;";
+            GM_addStyle("#rwl-setMenuSave," +
+                "#rwl-setMenuClose{" +
+                    "margin: 0;" +
+                    "padding: 0 2px;" +
+                    "border: none;" +
+                    "border-radius: 2px;" +
+                    "cursor: pointer;" +
+                    "background: #fff;" +
+                    "color: #000;" +
+                "}" +
+                "#rwl-setMenuSave{" +
+                    "border: 1px solid green;" +
+                "}" +
+                "#rwl-setMenuClose{" +
+                    "border: 1px solid red;" +
+                "}" +
+                "#rwl-setMenu{" +
+                    "text-align:left;" +
+                    "font-size:14px;" +
+                    "z-index:999999;" +
+                    "border: 1px solid cornflowerblue;" +
+                "}" +
+                "#rwl-setMenu p{" +
+                    "margin:5px auto;" +
+                "}" +
+                " ")
             var innerH = "" +
                 "<p>距离顶部距离（单位 像素） <input id='positiontop' type='text' value=" + userSetting.positionTop + "></p>" + "" +
                 "<laberl> <p>允许上传黑名单<input id='uploadchecked'  type='checkbox' " + upload_checked + "></p>" + "</laberl>" +
-                "<p><s>显示按钮（待添加）</s></p>" +
-                "<p><s>按钮透明度（待添加）</s></p>" +
-                "<p><s>快速复制（待添加）</s></p>" +
-                "<p><s>其他 (待添加）</s></p>" +
+                "<laberl> <p>显示按钮<input id='btnchecked'  type='checkbox' " + btnchecked + "></p>" + "</laberl>" +
+                "<p>问题反馈地址: <a href='https://github.com/qxinGitHub/Remove-web-limits-'>GitHub(qxin)</a>, <a href='https://greasyfork.org/zh-CN/scripts/28497-remove-web-limits-modified'>GreasyFork(qxin)</a>  </P>" +
+                "<p>项目原作者为 <a href='https://cat7373.github.io/remove-web-limits/'>cat7373</a>, <a href='https://github.com/Cat7373/remove-web-limits'>项目主页</a> </P>" +
+                "<p>本人只是业余时间进行了修改，让其能继续工作</P>" +
+                "<p>  </P>" +
+                // "<p><s>显示按钮（待添加）</s></p>" +
+                // "<p><s>按钮透明度（待添加）</s></p>" +
+                // "<p><s>快速复制（待添加）</s></p>" +
+                // "<p><s>其他 (待添加）</s></p>" +
+                "<p>数据存储方式为JSON,如若在此修改,注意引号逗号</P>" +
                 "<textarea wrap='off' cols='45' rows='20' style='overflow:auto;border-radius:4px;'>" + JSON.stringify(userSetting.data,false,4) + "</textarea>" + 
                 "<br>" +
                 // "<qxinbutton id='rwl-reset'>清空设置</qxinbutton> &nbsp;&nbsp;&nbsp;" +
                 "<qxinbutton id='rwl-setMenuSave'>保存</qxinbutton> &nbsp;&nbsp;&nbsp;" +
                 "<qxinbutton id='rwl-setMenuClose' onclick='this.parentNode.parentNode.removeChild(this.parentNode);' title='如果无法关闭 请刷新界面' >关闭</qxinbutton> &nbsp;&nbsp;&nbsp;" +
-                // "<qxinbutton id='rwl-codeboxsave'>保存</qxinbutton>" +
-                "<span style='font-size:0.7em;'>-- 啦啦啦，啦啦啦， --</span>" +
+                "<span style='font-size:0.7em;'>--| qxin v4.3.0 2020-02-19 |--</span>" +
                 ""
             "";
             odom.innerHTML = innerH;
@@ -390,17 +400,19 @@
 
             document.querySelector("#rwl-setMenuSave").addEventListener("click",saveSetting);
 
-        })
-    }
+        }
 
     // 保存选项
     function saveSetting(){
         var positionTop = document.querySelector("#rwl-setMenu #positiontop").value;
         var uploadChecked = document.querySelector("#rwl-setMenu #uploadchecked").checked;
+        var addBtnChecked = document.querySelector("#rwl-setMenu #btnchecked").checked;
         var codevalue = document.querySelector("#rwl-setMenu textarea").value;
         if(codevalue){
             var userSetting = GM_getValue("rwl_userData");
 
+
+            userSetting.addBtn = addBtnChecked;
             userSetting.data = JSON.parse(codevalue);
             userSetting.positionTop = parseInt(positionTop);
             userSetting.connectToTheServer = uploadChecked;
@@ -426,7 +438,6 @@
         }
     }
 
-
     // 增加拖拽事件 进行绑定
     function addDragEven(){
         setTimeout(function(){
@@ -438,7 +449,6 @@
         },1000)
         // dragBtn();  // 增加拖动事件
     }
-
 
     // 增加拖动事件 func
     function dragBtn(){
@@ -481,7 +491,6 @@
 
     // 初始化 init func
     function init() {
-        console.log("脚本-rwl-复制限制解除(改)------使用规则-----------------iqxin");
         // 针对个别网站采取不同的策略
         rule = clear();
         // 设置 event 列表
@@ -675,8 +684,6 @@
         if (bool && !check) {
             list = list.concat(hostname);
             // console.log("选中 不在黑名单, 增加",hostname,list);
-
-            // console.log("before: ",rwl_userData.waitUpload)
             rwl_userData.waitUpload.push(hostname); //准备上传
             rwl_userData.currentURL = window.location.href;
             // console.log("after: ",rwl_userData.waitUpload)
@@ -693,7 +700,6 @@
                 console.log("刷新页面loading");
             },350);
         }else{
-            console.log("返回false");
             return false;
         }
     }
@@ -792,6 +798,3 @@
         GM_deleteValue("rwl_userdata");
     }
 })(); 
-
-
-// 2020-02-16  4.2.0   获取所有节点 包括iframe中的节点
