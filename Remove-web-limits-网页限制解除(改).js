@@ -23,7 +23,7 @@
 
 // @icon               data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAABpElEQVR4nO3Vv2uUQRDG8c/ebSMWqay0trATAxrUSi1S2AiWFoJYpNCgoBjURsHWJKeNRfAvsDgFixQqKdPZ2ViEiCJYBOQu8f1hEXO59713j7MUfLZ6d2a/O8vMO0OzDnin9Ku2Mjvuaw07xgSAYEVXe2indMhj92zpKJLnBhF8MDeye9hn6zbN70eRiqCw02Bra3up8BBLu1FEBxsBucXqW4csz0ULe4jorSCMuPU89boRELDMHiI6Y8V65bbCUTccc70RkaOwKLOg0IkyXa9qTjOu2LAs6NZuD86hrdTyxRNTkUqqdhXlHrngGRVEZsMpJwex9DxIZSHYclesIb65LCoHgIs66UJq6btDBZHZrPh8V6YBOX66LbOkTGckBYimBW2FVTNeuOZNyrFJ236Yl4NSy5SbVm1PDvhodqgyMledTdRlAtDzqfL9tfkwUtyaRkv9LwFj9B/w7wPycXOhqlJ0yZHKPChMi5MCiM47XhsopbVJAUHfrYbmN/EToN+02eLPfz9OYyZhFJzW1Jn3lTsxaKQjCkp52jy45r1ZvSbTb9M0d4PBozGZAAAAAElFTkSuQmCC
 
-// @version           4.3.0
+// @version           4.3.1
 // @license           LGPLv3
 
 // @compatible        chrome Chrome_46.0.2490.86 + TamperMonkey + 脚本_1.3 测试通过
@@ -244,7 +244,7 @@
         node.style.cssText = "position:fixed;top:"+tempHeight+"px;left:"+rwl_userData.positionLeft+"px;right:"+rwl_userData.positionRight+"px;";
         // node.innerHTML = '<label><input type="checkbox" name="" id="black_node">黑名单</label><qxinbutton id="delete">delete</btton>';
         // node.innerHTML = '<label>限制解除 <input type="checkbox"  name="" id="black_node"></label>';
-        node.innerHTML = '<qxinbutton type="qxinbutton" id="rwl-setbtn"> set </qxinbutton> <lalala style="cursor:move;">限制解除</lalala> <input type="checkbox" name="" id="black_node" >';
+        node.innerHTML = '<qxinbutton type="qxinbutton" id="rwl-setbtn"> set </qxinbutton> <lalala style="cursor:move; font-size:12px;">限制解除</lalala> <input type="checkbox" name="" id="black_node" >';
         if(window.self === window.top){
             if (document.querySelector("body")){
                 document.body.appendChild(node);
@@ -266,7 +266,7 @@
         style.type="text/css";
         GM_addStyle( "#rwl-iqxin{" +
                 "position:fixed;" +
-                "transform:translate(-90px,0);" +
+                "transform:translate(-95px,0);" +
                 "width:85px;" +
                 "height:25px;" +
                 "font-size:12px;" +
@@ -313,8 +313,8 @@
                 "font-weight:500;" +
             "}" +
             "#rwl-iqxin #rwl-setbtn{" +
-                "margin: 0;" +
-                "padding: 0 2px;" +
+                "margin: 0 4px 0 0;" +
+                "padding: 0 0 0 4px;" +
                 "border: none;" +
                 "border-radius: 2px;" +
                 "cursor: pointer;" +
@@ -392,7 +392,7 @@
                 // "<qxinbutton id='rwl-reset'>清空设置</qxinbutton> &nbsp;&nbsp;&nbsp;" +
                 "<qxinbutton id='rwl-setMenuSave'>保存</qxinbutton> &nbsp;&nbsp;&nbsp;" +
                 "<qxinbutton id='rwl-setMenuClose' onclick='this.parentNode.parentNode.removeChild(this.parentNode);' title='如果无法关闭 请刷新界面' >关闭</qxinbutton> &nbsp;&nbsp;&nbsp;" +
-                "<span style='font-size:0.7em;'>--| qxin v4.3.0 2020-02-19 |--</span>" +
+                "<span style='font-size:0.7em;'>--| qxin v4.3.1 2020-02-20 |--</span>" +
                 ""
             "";
             odom.innerHTML = innerH;
