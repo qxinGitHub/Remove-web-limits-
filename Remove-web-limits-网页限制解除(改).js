@@ -23,7 +23,7 @@
 
 // @icon               data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAABpElEQVR4nO3Vv2uUQRDG8c/ebSMWqay0trATAxrUSi1S2AiWFoJYpNCgoBjURsHWJKeNRfAvsDgFixQqKdPZ2ViEiCJYBOQu8f1hEXO59713j7MUfLZ6d2a/O8vMO0OzDnin9Ku2Mjvuaw07xgSAYEVXe2indMhj92zpKJLnBhF8MDeye9hn6zbN70eRiqCw02Bra3up8BBLu1FEBxsBucXqW4csz0ULe4jorSCMuPU89boRELDMHiI6Y8V65bbCUTccc70RkaOwKLOg0IkyXa9qTjOu2LAs6NZuD86hrdTyxRNTkUqqdhXlHrngGRVEZsMpJwex9DxIZSHYclesIb65LCoHgIs66UJq6btDBZHZrPh8V6YBOX66LbOkTGckBYimBW2FVTNeuOZNyrFJ236Yl4NSy5SbVm1PDvhodqgyMledTdRlAtDzqfL9tfkwUtyaRkv9LwFj9B/w7wPycXOhqlJ0yZHKPChMi5MCiM47XhsopbVJAUHfrYbmN/EToN+02eLPfz9OYyZhFJzW1Jn3lTsxaKQjCkp52jy45r1ZvSbTb9M0d4PBozGZAAAAAElFTkSuQmCC
 
-// @version           4.3.1
+// @version           4.3.2
 // @license           LGPLv3
 
 // @compatible        chrome Chrome_46.0.2490.86 + TamperMonkey + 脚本_1.3 测试通过
@@ -56,7 +56,7 @@
         "positionTop":"0",
         "positionLeft":"0",
         "positionRight":"auto",
-        "addBtnaddBtn" : true,
+        "addBtn" : true,
         "connectToTheServer" : false,
         "waitUpload":[],
         "currentURL":"null",
@@ -377,7 +377,7 @@
             var innerH = "" +
                 "<p>距离顶部距离（单位 像素） <input id='positiontop' type='text' value=" + userSetting.positionTop + "></p>" + "" +
                 "<laberl> <p>允许上传黑名单<input id='uploadchecked'  type='checkbox' " + upload_checked + "></p>" + "</laberl>" +
-                "<laberl> <p>显示按钮<input id='btnchecked'  type='checkbox' " + btnchecked + "></p>" + "</laberl>" +
+                "<laberl> <p>显示按钮<input id='btnchecked'  type='checkbox' " + btnchecked + "> 点击脚本管理扩展可以再次打开设置</p>" + "</laberl>" +
                 "<p>问题反馈地址: <a href='https://github.com/qxinGitHub/Remove-web-limits-'>GitHub(qxin)</a>, <a href='https://greasyfork.org/zh-CN/scripts/28497-remove-web-limits-modified'>GreasyFork(qxin)</a>  </P>" +
                 "<p>项目原作者为 <a href='https://cat7373.github.io/remove-web-limits/'>cat7373</a>, <a href='https://github.com/Cat7373/remove-web-limits'>项目主页</a> </P>" +
                 "<p>本人只是业余时间进行了修改，让其能继续工作</P>" +
@@ -392,7 +392,7 @@
                 // "<qxinbutton id='rwl-reset'>清空设置</qxinbutton> &nbsp;&nbsp;&nbsp;" +
                 "<qxinbutton id='rwl-setMenuSave'>保存</qxinbutton> &nbsp;&nbsp;&nbsp;" +
                 "<qxinbutton id='rwl-setMenuClose' onclick='this.parentNode.parentNode.removeChild(this.parentNode);' title='如果无法关闭 请刷新界面' >关闭</qxinbutton> &nbsp;&nbsp;&nbsp;" +
-                "<span style='font-size:0.7em;'>--| qxin v4.3.1 2020-02-20 |--</span>" +
+                "<span style='font-size:0.7em;'>--| qxin v4.3.2 2020-02-21 |--</span>" +
                 ""
             "";
             odom.innerHTML = innerH;
