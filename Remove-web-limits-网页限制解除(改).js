@@ -23,7 +23,7 @@
 
 // @icon               data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAABpElEQVR4nO3Vv2uUQRDG8c/ebSMWqay0trATAxrUSi1S2AiWFoJYpNCgoBjURsHWJKeNRfAvsDgFixQqKdPZ2ViEiCJYBOQu8f1hEXO59713j7MUfLZ6d2a/O8vMO0OzDnin9Ku2Mjvuaw07xgSAYEVXe2indMhj92zpKJLnBhF8MDeye9hn6zbN70eRiqCw02Bra3up8BBLu1FEBxsBucXqW4csz0ULe4jorSCMuPU89boRELDMHiI6Y8V65bbCUTccc70RkaOwKLOg0IkyXa9qTjOu2LAs6NZuD86hrdTyxRNTkUqqdhXlHrngGRVEZsMpJwex9DxIZSHYclesIb65LCoHgIs66UJq6btDBZHZrPh8V6YBOX66LbOkTGckBYimBW2FVTNeuOZNyrFJ236Yl4NSy5SbVm1PDvhodqgyMledTdRlAtDzqfL9tfkwUtyaRkv9LwFj9B/w7wPycXOhqlJ0yZHKPChMi5MCiM47XhsopbVJAUHfrYbmN/EToN+02eLPfz9OYyZhFJzW1Jn3lTsxaKQjCkp52jy45r1ZvSbTb9M0d4PBozGZAAAAAElFTkSuQmCC
 
-// @version           4.3.3
+// @version           4.3.4
 // @license           LGPLv3
 
 // @compatible        chrome Chrome_46.0.2490.86 + TamperMonkey + 脚本_1.3 测试通过
@@ -325,10 +325,10 @@
             " "
         style.innerHTML = styleInner;
         if(document.querySelector("#rwl-iqxin")){
-            console.log("通过style插入");
+            // console.log("通过style插入");
             document.querySelector("#rwl-iqxin").appendChild(style);
         } else {
-            console.log("通过GM插入");
+            // console.log("通过GM插入");
             GM_addStyle(styleInner);
         }
     };
@@ -358,6 +358,7 @@
                 "background: #fff;" +
                 "border-radius: 4px;";
             GM_addStyle("#rwl-setMenuSave," +
+                "#rwl-reset," +
                 "#rwl-setMenuClose{" +
                     "margin: 0;" +
                     "padding: 0 2px;" +
@@ -366,6 +367,9 @@
                     "cursor: pointer;" +
                     "background: #fff;" +
                     "color: #000;" +
+                "}" +
+                "#rwl-reset{" +
+                    "border: 1px solid #666;" +
                 "}" +
                 "#rwl-setMenuSave{" +
                     "border: 1px solid green;" +
@@ -398,16 +402,17 @@
                 "<p>数据存储方式为JSON,如若在此修改,注意引号逗号</P>" +
                 "<textarea wrap='off' cols='45' rows='20' style='overflow:auto;border-radius:4px;'>" + JSON.stringify(userSetting.data,false,4) + "</textarea>" + 
                 "<br>" +
-                // "<qxinbutton id='rwl-reset'>清空设置</qxinbutton> &nbsp;&nbsp;&nbsp;" +
+                "<qxinbutton id='rwl-reset'>清空设置</qxinbutton> &nbsp;&nbsp;&nbsp;" +
                 "<qxinbutton id='rwl-setMenuSave'>保存</qxinbutton> &nbsp;&nbsp;&nbsp;" +
                 "<qxinbutton id='rwl-setMenuClose' onclick='this.parentNode.parentNode.removeChild(this.parentNode);' title='如果无法关闭 请刷新界面' >关闭</qxinbutton> &nbsp;&nbsp;&nbsp;" +
-                "<span style='font-size:0.7em;'>--| qxin v4.3.3 2020-02-23 |--</span>" +
+                "<span style='font-size:0.7em;'>--| qxin v4.3.4 2020-02-23 |--</span>" +
                 ""
             "";
             odom.innerHTML = innerH;
             document.body.appendChild(odom);
 
             document.querySelector("#rwl-setMenuSave").addEventListener("click",saveSetting);
+            document.querySelector("#rwl-reset").addEventListener("click",rwlReset);
 
         }
 
@@ -436,6 +441,11 @@
             // this.reset();
         }
         closeMenu();
+    }
+    // 复原菜单
+    function rwlReset(){
+        GM_deleteValue("rwl_userData");
+        window.location.reload();
     }
 
     //关闭菜单
@@ -775,6 +785,7 @@
             case "zhihu.com":
             case "www.zhihu.com": return rwl_userData.rules.rule_zhihu; break;
             case "t.bilibili.com": clear_link_bilibili(); break;
+            case "www.uslsoftware.com": clear_covers(".protect_contents-overlay");clear_covers(".protect_alert"); return rwl_userData.rules.rule_plus; break;
             case "www.shangc.net": return rwl_userData.rules.rule_plus; break;
         }
         return rwl_userData.rules.rule_def;
