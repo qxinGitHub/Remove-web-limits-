@@ -23,7 +23,7 @@
 
 // @icon               data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAABpElEQVR4nO3Vv2uUQRDG8c/ebSMWqay0trATAxrUSi1S2AiWFoJYpNCgoBjURsHWJKeNRfAvsDgFixQqKdPZ2ViEiCJYBOQu8f1hEXO59713j7MUfLZ6d2a/O8vMO0OzDnin9Ku2Mjvuaw07xgSAYEVXe2indMhj92zpKJLnBhF8MDeye9hn6zbN70eRiqCw02Bra3up8BBLu1FEBxsBucXqW4csz0ULe4jorSCMuPU89boRELDMHiI6Y8V65bbCUTccc70RkaOwKLOg0IkyXa9qTjOu2LAs6NZuD86hrdTyxRNTkUqqdhXlHrngGRVEZsMpJwex9DxIZSHYclesIb65LCoHgIs66UJq6btDBZHZrPh8V6YBOX66LbOkTGckBYimBW2FVTNeuOZNyrFJ236Yl4NSy5SbVm1PDvhodqgyMledTdRlAtDzqfL9tfkwUtyaRkv9LwFj9B/w7wPycXOhqlJ0yZHKPChMi5MCiM47XhsopbVJAUHfrYbmN/EToN+02eLPfz9OYyZhFJzW1Jn3lTsxaKQjCkp52jy45r1ZvSbTb9M0d4PBozGZAAAAAElFTkSuQmCC
 
-// @version           4.3.2
+// @version           4.3.3
 // @license           LGPLv3
 
 // @compatible        chrome Chrome_46.0.2490.86 + TamperMonkey + 脚本_1.3 测试通过
@@ -264,7 +264,8 @@
 
         var style = document.createElement("style");
         style.type="text/css";
-        GM_addStyle( "#rwl-iqxin{" +
+
+        var styleInner = "#rwl-iqxin{" +
                 "position:fixed;" +
                 "transform:translate(-95px,0);" +
                 "width:85px;" +
@@ -321,7 +322,15 @@
                 "background: #fff;" +
                 "color: #000;" +
             "}" +
-            " ");
+            " "
+        style.innerHTML = styleInner;
+        if(document.querySelector("#rwl-iqxin")){
+            console.log("通过style插入");
+            document.querySelector("#rwl-iqxin").appendChild(style);
+        } else {
+            console.log("通过GM插入");
+            GM_addStyle(styleInner);
+        }
     };
 
     // 给按钮绑定点击事件
@@ -392,7 +401,7 @@
                 // "<qxinbutton id='rwl-reset'>清空设置</qxinbutton> &nbsp;&nbsp;&nbsp;" +
                 "<qxinbutton id='rwl-setMenuSave'>保存</qxinbutton> &nbsp;&nbsp;&nbsp;" +
                 "<qxinbutton id='rwl-setMenuClose' onclick='this.parentNode.parentNode.removeChild(this.parentNode);' title='如果无法关闭 请刷新界面' >关闭</qxinbutton> &nbsp;&nbsp;&nbsp;" +
-                "<span style='font-size:0.7em;'>--| qxin v4.3.2 2020-02-21 |--</span>" +
+                "<span style='font-size:0.7em;'>--| qxin v4.3.3 2020-02-23 |--</span>" +
                 ""
             "";
             odom.innerHTML = innerH;
