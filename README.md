@@ -10,11 +10,19 @@
 因为原作者因工作关系已停止维护，所以如果反馈的话，务必在我的 [GitHub](https://github.com/qxinGitHub/Remove-web-limits-/issues) 或者 [Greasy Fork](https://greasyfork.org/zh-CN/scripts/28497-remove-web-limits-modified) 下进行反馈，并提供相关网址。 如果是感谢的话可以去 [原作者的GitHub](https://github.com/Cat7373/remove-web-limits) 感谢。  
 
 ## 相关说明
+0. 某些页面原作者的脚本可以而我的不行，所以当出现这种情况的时候可以尝试下原作者的。
 1. flash页面上的文字无法复制
 2. 链接上的文字可以通过按住alt键进行选择复制
 3. 如果对视频网站使用，会使视频拖动条无法使用。 请在复制完成后关掉对视频网站的规则使用。
 
 ## 更新历史
+
+  > v4.4.0 2020-08-03
+  - 增加复制快捷键默认 Cttl + C ，可以改为 F1 或关闭(即便该网站不在黑名单中也会起作用)
+  - 设置界面，关闭按钮无法使用的问题
+  - 排除哔哩哔哩/youtube视频播放界面
+  - 隐藏按钮后无法生效的问题
+  - 增加了几个网站
   > v4.3.3 2020-02-23 
   - 增加清空设置按钮
   - 增加 www.uslsoftware.com 网站
