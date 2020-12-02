@@ -133,7 +133,8 @@
             "www.yuque.com",
             "www.longmabookcn.com",
             "www.alphapolis.co.jp",
-            "www.sdifen.com"
+            "www.sdifen.com",
+            "feishu.cn",
         ]
     }
 
