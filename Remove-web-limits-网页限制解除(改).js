@@ -23,7 +23,7 @@
 
 // @icon               data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAABpElEQVR4nO3Vv2uUQRDG8c/ebSMWqay0trATAxrUSi1S2AiWFoJYpNCgoBjURsHWJKeNRfAvsDgFixQqKdPZ2ViEiCJYBOQu8f1hEXO59713j7MUfLZ6d2a/O8vMO0OzDnin9Ku2Mjvuaw07xgSAYEVXe2indMhj92zpKJLnBhF8MDeye9hn6zbN70eRiqCw02Bra3up8BBLu1FEBxsBucXqW4csz0ULe4jorSCMuPU89boRELDMHiI6Y8V65bbCUTccc70RkaOwKLOg0IkyXa9qTjOu2LAs6NZuD86hrdTyxRNTkUqqdhXlHrngGRVEZsMpJwex9DxIZSHYclesIb65LCoHgIs66UJq6btDBZHZrPh8V6YBOX66LbOkTGckBYimBW2FVTNeuOZNyrFJ236Yl4NSy5SbVm1PDvhodqgyMledTdRlAtDzqfL9tfkwUtyaRkv9LwFj9B/w7wPycXOhqlJ0yZHKPChMi5MCiM47XhsopbVJAUHfrYbmN/EToN+02eLPfz9OYyZhFJzW1Jn3lTsxaKQjCkp52jy45r1ZvSbTb9M0d4PBozGZAAAAAElFTkSuQmCC
 
-// @version           4.4.0
+// @version           4.4.1
 // @license           LGPLv3
 
 // @match             *://*/*
@@ -133,7 +133,9 @@
             "www.yuque.com",
             "www.longmabookcn.com",
             "www.alphapolis.co.jp",
-            "www.sdifen.com"
+            "www.sdifen.com",
+            "votetw.com",
+            "boke112.com"
         ]
     }
 
@@ -405,9 +407,10 @@
                     "</select>" +
                 "</p> " +
                 "<laberl> <p>显示按钮<input id='btnchecked'  type='checkbox' " + btnchecked + "> 点击脚本管理扩展可以再次打开设置</p>" + "</laberl>" +
-                "<p>问题反馈地址: <a href='https://github.com/qxinGitHub/Remove-web-limits-'>GitHub(qxin)</a>, <a href='https://greasyfork.org/zh-CN/scripts/28497-remove-web-limits-modified'>GreasyFork(qxin)</a>  </P>" +
-                "<p>项目原作者为 <a href='https://cat7373.github.io/remove-web-limits/'>cat7373</a>, <a href='https://github.com/Cat7373/remove-web-limits'>项目主页</a> </P>" +
-                "<p>本人只是业余时间进行了修改，让其能继续工作</P>" +
+                "<p>问题反馈地址: <a target='_blank' href='https://github.com/qxinGitHub/Remove-web-limits-'>GitHub(qxin)</a>, <a target='_blank' href='https://greasyfork.org/zh-CN/scripts/28497-remove-web-limits-modified'>GreasyFork(qxin)</a>  </P>" +
+                "<p>项目原作者为 <a target='_blank' href='https://cat7373.github.io/remove-web-limits/'>cat7373</a>, <a target='_blank' href='https://github.com/Cat7373/remove-web-limits'>项目主页</a> </P>" +
+                "<p>能力有限,不能每个网站都能完美</P>" +
+                "<p>如若反馈,务必带上详细网址</P>" +
                 "<p>  </P>" +
                 // "<p><s>显示按钮（待添加）</s></p>" +
                 // "<p><s>按钮透明度（待添加）</s></p>" +
@@ -419,7 +422,7 @@
                 "<qxinbutton id='rwl-reset'>清空设置</qxinbutton> &nbsp;&nbsp;&nbsp;" +
                 "<qxinbutton id='rwl-setMenuSave'>保存</qxinbutton> &nbsp;&nbsp;&nbsp;" +
                 "<qxinbutton id='rwl-setMenuClose' onclick='this.parentNode.parentNode.removeChild(this.parentNode);' title='如果无法关闭 请刷新界面' >关闭</qxinbutton> &nbsp;&nbsp;&nbsp;" +
-                "<span style='font-size:0.7em;'>--| qxin v4.4.0 2020-08-03 |--</span>" +
+                "<span style='font-size:0.7em;'>--| qxin v4.4.1 2021-03-07 |--</span>" +
                 ""
             "";
             odom.innerHTML = innerH;
@@ -817,6 +820,7 @@
     function clear(){
         // console.log("进入clear",hostname,rwl_userData.rules);
         switch (hostname){
+            case "votetw.com": clear_votetw();break;
             case "www.z3z4.com": clear_covers(".moviedownaddiv"); break;
             case "huayu.baidu.com": clear_covers("#jqContextMenu"); break;
             case "www.myhtlmebook.com": clear_covers("img.fullimg"); break;
@@ -825,6 +829,7 @@
             case "t.bilibili.com": clear_link_bilibili(); break;
             case "www.uslsoftware.com": clear_covers(".protect_contents-overlay");clear_covers(".protect_alert"); return rwl_userData.rules.rule_plus; break;
             case "www.longmabookcn.com": clear_covers(".fullimg"); return rwl_userData.rules.rule_plus; break;
+            case "boke112.com": return rwl_userData.rules.rule_plus; break;
             case "www.shangc.net": return rwl_userData.rules.rule_plus; break;
         }
         return rwl_userData.rules.rule_def;
@@ -845,6 +850,16 @@
              odiv.appendChild(tDiv);
         }
     }
+    // https://votetw.com/wiki/%E6%9E%97%E6%99%BA%E5%A0%85
+    // 会创建多个无id,无class的div,覆盖在文字上层
+    function clear_votetw(){
+        var odivs = document.querySelectorAll(".mw-parser-output>div")
+        odivs.forEach(function(value){
+            value.setAttribute("style","");
+        })
+    }
+
+
 
     // 3.x.x 过渡 4.x.x 版本
     function version_up_3_to_4(){
