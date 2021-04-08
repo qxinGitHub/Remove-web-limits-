@@ -90,6 +90,7 @@
             }
         },
         "data": [
+            "wenku.baidu.com",
             "b.faloo.com",
             "bbs.coocaa.com",
             "book.hjsm.tom.com",
@@ -819,7 +820,28 @@
     document.onkeydown = hotkey; //当onkeydown 事件发生时调用hotkey函数  
  
     // 部分网站采用了其他的防复制手段
+
+    //删除：百度文库选中后的弹窗
+    //我直接把div文件删了
+    function removeWenkuBaidu(){
+        var paras =document.getElementsByClassName("tips-wrap");
+        while(paras[0]) {
+            paras[0].parentNode.removeChild(paras[0]);
+        }
+    }
+
+    //删除文字选中类的弹窗，待添加
+    function removeExtraBars(){
+       console.log("here");
+       console.log(hostname);
+       if (hostname.indexOf("wenku.baidu") != -1)
+           removeWenkuBaidu();
+    }
+
+
+
     function clear(){
+        removeExtraBars();
         // console.log("进入clear",hostname,rwl_userData.rules);
         switch (hostname){
             case "chuangshi.qq.com": clear_chuangshi();break;
